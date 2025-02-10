@@ -10,9 +10,23 @@ export default function Post() {
 
   // Fetch posts from Rails API
   useEffect(() => {
-    axios.get(API_URL)
-      .then(response => setPosts(response.data))
-      .catch(error => console.error("Error fetching posts:", error));
+    // axios.get(API_URL)
+    //   .then(response => setPosts(response.data))
+    //   .catch(error => console.error("Error fetching posts:", error));
+
+
+
+      async function fetchData() {
+        try {
+          const response = await axios.get(API_URL);
+          setPosts(response.data)
+          console.log(response.data);
+        } catch (error) {
+          console.error("Axios error:", error.response?.data || error.message);
+        }
+      }
+      fetchData();  
+
   }, []);
 
   // Handle Create & Update Post
