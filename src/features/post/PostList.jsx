@@ -24,16 +24,29 @@ function PostList() {
     }, []);
 
     return (
-        <ul>
-            {posts.map(post => (
-                <div key={post.id} className="post-containers border m-2 rounded p-2 text-start">
-                    <h2 className="post-title font-bold fs-5">
-                        <Link to={`/posts/${post.id}`} className="text-decoration-none">{post.title}</Link>
+        <div className="container mt-4">
+        <h1 className="mb-4">Posts</h1>
+        <ul className="list-unstyled">
+            {posts.map((post) => (
+            <li key={post.id} className="mb-3">
+                <div className="card shadow-sm">
+                <div className="card-body">
+                    <h2 className="card-title fs-5">
+                    <Link to={`/posts/${post.id}`} className="text-decoration-none text-primary">
+                        {post.title}
+                    </Link>
                     </h2>
-                    <div>{post.body}</div>
+                    <p className="card-text">{post.body}</p>
+                    <div className="d-flex gap-2">
+                    <Link to={`/posts/${post.id}/edit`} className="btn btn-primary">Edit</Link>
+                    <Link to={`/posts/${post.id}/delete`} className="btn btn-danger">Delete</Link>
+                    </div>
                 </div>
+                </div>
+            </li>
             ))}
         </ul>
+        </div>
     );
 }
 
