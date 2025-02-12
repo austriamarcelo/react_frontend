@@ -23,6 +23,14 @@ function PostList() {
         fetchPosts();
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${API_URL}/${id}`);
+            setPosts(posts.filter(post => post.id !== id));
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
+    };
     return (
         <div className="container mt-4">
         <h1 className="mb-4">Posts</h1>
@@ -39,7 +47,7 @@ function PostList() {
                     <p className="card-text">{post.body}</p>
                     <div className="d-flex gap-2">
                     <Link to={`/posts/${post.id}/edit`} className="btn btn-primary">Edit</Link>
-                    <Link to={`/posts/${post.id}/delete`} className="btn btn-danger">Delete</Link>
+                    <button className="btn btn-danger" onClick={() => handleDelete(post.id)}>Delete</button>
                     </div>
                 </div>
                 </div>
